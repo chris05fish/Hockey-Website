@@ -3,17 +3,16 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 options = [
-    ('Food','food'),
-    ('Clothing', 'clothing'),
-    ('Housing', 'housing'),
-    ('Education', 'education'),
-    ('Entertainment', 'entertainment'),
-    ('Other', 'other'),
+    ('Rightwing','rightwing'),
+    ('Leftwing', 'leftwing'),
+    ('Defensemen', 'defensemen'),
+    ('Center', 'center'),
+    ('Goaltender', 'goaltender'),
 ]
 
 class BudgetEntry(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    description = models.CharField(max_length=128)
-    category = models.CharField(max_length=20, choices=options)
-    projected = models.PositiveIntegerField()
-    actual = models.PositiveIntegerField()
+    player = models.CharField(max_length=128)
+    position = models.CharField(max_length=20, choices=options)
+    points = models.PositiveIntegerField()
+    prediction = models.PositiveIntegerField()

@@ -1,7 +1,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Budget</title>
+  <title>Team Points</title>
   {% include "bootstrap.html" %}
 	{% load static %}
 	<script src="{%static 'common.js' %}" /></script>
@@ -9,24 +9,24 @@
 <body>
   {% include "navigation.html" %}
 	<div class="jumbotron">
-	  <h1>Budget</h1>
+	  <h1>Team Statistics</h1>
 	  {% if not table_data %}
-	  	</p>There are no budget entries to display.</p>
+  </p>There are no players to display.</p>
 	  {% else %}
 			<table class="table table-striped" border="1">
 	    <tr>
-        <th>Description</th>
-        <th>Category</th>
-        <th>Projected</th>
-        <th>Actual</th>
-        <th>Action</th>
+        <th>Player</th>
+        <th>Position</th>
+        <th>Points</th>
+        <th>Prediction</th>
+        <th></th>
 			</tr>
       {% for row in table_data %}
 	    	<tr>
-	      	<td>{{ row.description }}</td>
-	      	<td>{{ row.category }}</td>
-          <td>{{ row.projected }}</td>
-          <td>{{ row.actual }}</td>
+	      	<td>{{ row.player }}</td>
+	      	<td>{{ row.position }}</td>
+          <td>{{ row.points }}</td>
+          <td>{{ row.prediction }}</td>
           <td>
 	        	<a class="btn btn-primary" href="/budget/edit/{{ row.id }}/">Edit</a>
 	        	<a class="btn btn-primary" href="#" onclick="confirmDeleteModal({{ row.id }})">Delete</a>
@@ -35,13 +35,16 @@
 	    {% endfor %}
 		  </table>
 		{% endif %}
-    {% if total >= 0 %}
-      <p>There is a projected budget surplus of ${{ total }}</p>
-    {% else %}
-      <p>There is a projected budget deficit of ${{ total }}</p>
+    {% if points > 0 %}
+      <p>This team has a total of {{ points }} points scored</p>
+      {% if total >= 0 %}
+        <p>Total players have +{{ total }} points from predicted scoring for this season</p>
+      {% else %}
+        <p>Total players have {{ total }} points from predicted scoring for this season</p>
+      {% endif %}
     {% endif %}
 	  <form method="GET" action="/budget/add/">
-	    <input type="submit" class="btn btn-primary" value = "Add Budget Item">
+	    <input type="submit" class="btn btn-primary" value = "Add Player">
 	  </form>
 	</div>
 
@@ -51,10 +54,10 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-          <h4 class="modal-title">Delete Budget Entry</h4>
+          <h4 class="modal-title">Delete Player</h4>
         </div>
         <div class="modal-body">
-          <p>Do you really want to delete this Budget Entry?</p>
+          <p>Do you really want to delete this player?</p>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>

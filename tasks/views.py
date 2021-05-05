@@ -11,20 +11,25 @@ def tasks(request):
 		id = request.GET["delete"]
 		TasksEntry.objects.filter(id=id).delete()
 		return redirect("/tasks/")
-	if (request.method == "GET" and "toggle_completed" in request.GET):
-		id = request.GET["toggle_completed"]
-		print("hello")
-		taskObject = TasksEntry.objects.get(id=id)
-		if taskObject.completed == "No":
-			taskObject.completed = "Yes"
-		else:
-			taskObject.completed = "No"
-		taskObject.save()
-		return redirect("/tasks/")
 	else:
 		table_data = TasksEntry.objects.filter(user=request.user)
+		sumWin = 0
+		sumLoss = 0
+		games = 0
+		taskObjects = TasksEntry.objects.all()
+		for e in TasksEntry.objects.all():
+			if(e.win == "Win"):
+				sumWin += 1
+				games += 1
+			if(e.win == "Loss"):
+				sumLoss += 1
+				games += 1
 		context = {
-		"table_data": table_data
+		"table_data": table_data,
+		"sumWin": sumWin,
+		"sumLoss": sumLoss,
+		"games": games,
+		"taskObjects": taskObjects
 		}
 		return render(request, 'tasks/tasks.html', context)
 
@@ -34,10 +39,10 @@ def add(request):
 		if ("add" in request.POST):
 			add_form = TasksEntryForm(request.POST)
 			if (add_form.is_valid()):
-				description = add_form.cleaned_data["description"]
-				category = add_form.cleaned_data["category"]
+				opposing = add_form.cleaned_data["opposing"]
+				win = add_form.cleaned_data["win"]
 				user = User.objects.get(id=request.user.id)
-				TasksEntry(user = user, description=description, category=category).save()
+				TasksEntry(user = user, opposing=opposing, win=win).save()
 				return redirect("/tasks/")
 			else:
 				context = {

@@ -2,13 +2,13 @@
 <html lang="en" dir="ltr">
 <head>
   <meta charset="utf-8">
-  <title>Edit Budget Entry</title>
+  <title>Edit Player Entry</title>
   {% include "bootstrap.html" %}
 </head>
 <body>
   {% include "navigation.html" %}
   <div class="jumbotron">
-    <h1>Edit Budget</h1>
+    <h1>Edit Player</h1>
     <form method="POST">
       {% csrf_token %}
       <table>
@@ -16,7 +16,7 @@
 				<tr>
 					<td></td>
 					<td>
-						<a href="/bduget/" class="btn btn-secondary">Cancel</a>
+						<a href="/budget/" class="btn btn-secondary">Cancel</a>
 						<input type="submit" class="btn btn-primary" name="edit" value = "Save">
 					</td>
 				</td></tr>

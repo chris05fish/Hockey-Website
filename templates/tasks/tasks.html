@@ -1,7 +1,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Tasks</title>
+  <title>Record</title>
   {% include "bootstrap.html" %}
 	{% load static %}
 	<script src="{%static 'common.js' %}" /></script>
@@ -9,27 +9,20 @@
 <body>
   {% include "navigation.html" %}
 	<div class="jumbotron">
-	  <h1>Tasks</h1>
+	  <h1>Games Played</h1>
 	  {% if not table_data %}
-	  	</p>There are no task entries to display.</p>
+  </p>There are no games to display.</p>
 	  {% else %}
-      <a class="btn btn-secondary" href="/tasks/hide_completed/">Hide Completed Tasks</a>
 			<table class="table table-striped" border="1">
 	    <tr>
-        <th>Description</th>
-        <th>Category</th>
-        <th>Completed</th>
-        <th>Action</th>
+        <th>Opposing Team</th>
+        <th>Win/Loss</th>
+        <th></th>
 			</tr>
       {% for row in table_data %}
 	    	<tr>
-	      	<td>{{ row.description }}</td>
-	      	<td>{{ row.category }}</td>
-          <td>
-            <a href="?toggle_completed={{ row.id }}">
-              {{ row.completed }}
-            </a>
-          </td>
+	      	<td>{{ row.opposing }}</td>
+	      	<td>{{ row.win }}</td>
 	      	<td>
 	        	<a class="btn btn-primary" href="/tasks/edit/{{ row.id }}/">Edit</a>
 	        	<a class="btn btn-primary" href="#" onclick="confirmDeleteModal({{ row.id }})">Delete</a>
@@ -38,8 +31,16 @@
 	    {% endfor %}
 		  </table>
 		{% endif %}
+    {% if games > 0 %}
+      {% if games == 1 %}
+        <p>This team has played {{games}} game</p>
+      {% else %}
+        <p>This team has played {{games}} games</p>
+      {% endif %}
+    {% endif %}
+    <p>The teams record is {{sumWin}}-{{sumLoss}}</p>
 	  <form method="GET" action="/tasks/add/">
-	    <input type="submit" class="btn btn-primary" value = "Add Task">
+	    <input type="submit" class="btn btn-primary" value = "Add Game">
 	  </form>
 	</div>
 
@@ -49,10 +50,10 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-          <h4 class="modal-title">Delete Task Entry</h4>
+          <h4 class="modal-title">Delete Game Entry</h4>
         </div>
         <div class="modal-body">
-          <p>Do you really want to delete this Task Entry?</p>
+          <p>Do you really want to delete this Game Entry?</p>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>

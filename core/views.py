@@ -23,11 +23,11 @@ def join(request):
         else:
             # Form invalid, return errors to user
             page_data = { "join_form": join_form }
-            return render(request, 'core/join.html')
+            return render(request, 'core/join.html', page_data)
     else:
         join_form = JoinForm()
         page_data = { "join_form": join_form }
-        return render(request, 'core/join.html')
+        return render(request, 'core/join.html', page_data)
 
 def user_login(request):
     if (request.method == 'POST'):

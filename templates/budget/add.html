@@ -2,13 +2,13 @@
 <html lang="en" dir="ltr">
 <head>
   <meta charset="utf-8">
-  <title>Add New Budget Entry</title>
+  <title>Add New Player</title>
   {% include "bootstrap.html" %}
 </head>
 <body>
   {% include "navigation.html" %}
   <div class="jumbotron">
-    <h1>Add New Budget</h1>
+    <h1>Add New Player</h1>
     <form method="POST">
       {% csrf_token %}
       <table>
@@ -17,7 +17,7 @@
 					<td></td>
 					<td>
 						<a href="/budget/" class="btn btn-secondary">Cancel</a>
-						<input type="submit" class="btn btn-primary" name="add" value = "Add Task">
+						<input type="submit" class="btn btn-primary" name="add" value = "Add Player">
 					</td>
 				</td></tr>
 			</table>

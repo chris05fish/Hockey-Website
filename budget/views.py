@@ -15,14 +15,17 @@ def budget(request):
 		table_data = BudgetEntry.objects.filter(user=request.user)
 		sumProjected = 0
 		sumActual = 0
+		points = 0
 		budgetObjects = BudgetEntry.objects.all()
 		for e in BudgetEntry.objects.all():
-			sumProjected += e.projected
-			sumActual += e.actual
-		total = sumProjected - sumActual
+			sumProjected += e.prediction
+			sumActual += e.points
+			points += e.points
+		total = sumActual - sumProjected
 		context = {
 		"table_data": table_data,
 		"total": total,
+		"points": points,
 		"budgetObjects": budgetObjects
 		}
 		return render(request, 'budget/budget.html', context)
@@ -33,12 +36,12 @@ def add(request):
         if ("add" in request.POST):
             add_form = BudgetEntryForm(request.POST)
             if (add_form.is_valid()):
-                description = add_form.cleaned_data["description"]
-                category = add_form.cleaned_data["category"]
-                projected = add_form.cleaned_data["projected"]
-                actual = add_form.cleaned_data["actual"]
+                player = add_form.cleaned_data["player"]
+                position = add_form.cleaned_data["position"]
+                points = add_form.cleaned_data["points"]
+                prediction = add_form.cleaned_data["prediction"]
                 user = User.objects.get(id=request.user.id)
-                BudgetEntry(user = user, description=description, category=category, projected=projected, actual=actual).save()
+                BudgetEntry(user = user, player=player, position=position, points=points, prediction=prediction).save()
                 return redirect("/budget/")
             else:
                 context = {
