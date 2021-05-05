@@ -3,84 +3,35 @@
   <head>
     {% load static %}
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
-    <script src="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
+    <script src="{%static 'common.js' %}" /></script>
   </head>
   <body>
     {% include "bootstrap.html" %}
     {% include "navigation.html" %}
-    <h2 class="page_header"> Organizer </h2>
+    <h2 class="page_header"> Hockey Calculator </h2>
     <div class="row">
       <div class="col-lg-4">
         <div class="container-fluid">
-          <div class="jumbotron">
+          <div class="jumbotron bg-dark text-white">
             <div align="center">
-              <h2>Tasks</h2>
-              <div class="ct-chart ct-perfect-fourth" id=".ct-chart"></div>
-              <a class="btn btn-primary" href='/tasks/'>Tasks</a>
+              <h2>Record</h2>
+              <p>Click bellow to see all of the games your team has played</p>
+              <a class="btn btn-primary" href='/tasks/'>Team Games</a>
             </div>
           </div>
         </div>
       </div>
       <div class="col-lg-4">
         <div class="container-fluid">
-          <div class="jumbotron">
+          <div class="jumbotron bg-dark text-white">
             <div align="center">
-              <h2>Budget</h2>
-              <div class="ct-chart ct-perfect-fourth" id=".ct-chart2"></div>
-              <a class="btn btn-primary" href='/budget/'>Budget</a>
+              <h2>Stats</h2>
+              <p>Click bellow to see your teams player Statistics</p>
+              <a class="btn btn-primary" href='/budget/'>Team Stats</a>
             </div>
           </div>
         </div>
       </div>
     </div>
-
-    <script>
-    var data = {
-      labels: [{{budgetObjects.description}}],
-      series: [
-        [{{budgetObjects.projected}}],
-        [{{budgetObjects.actual}}]
-      ]
-    };
-
-    var options = {
-      seriesBarDistance: 10
-    };
-
-    var responsiveOptions = [
-      ['screen and (min-width: 641px) and (max-width: 1024px)', {
-        seriesBarDistance: 10,
-        axisX: {
-          labelInterpolationFnc: function (value) {
-            return value;
-          }
-        }
-      }],
-      ['screen and (max-width: 640px)', {
-        seriesBarDistance: 5,
-        axisX: {
-          labelInterpolationFnc: function (value) {
-            return value[0];
-          }
-        }
-      }]
-    ];
-
-    new Chartist.Bar('.ct-chart', data, options, responsiveOptions);
-
-    var data = {
-      series: [5, 3, 4]
-    };
-
-    var sum = function(a, b) { return a + b };
-
-    new Chartist.Pie('.ct-chart2', data, {
-      labelInterpolationFnc: function(value) {
-        return Math.round(value / data.series.reduce(sum) * 100) + '%';
-      }
-    });
-    </script>
   </body>
 </html>
