@@ -38,7 +38,13 @@
         <p>This team has played {{games}} games</p>
       {% endif %}
     {% endif %}
-    <p>The teams record is {{sumWin}}-{{sumLoss}}</p>
+    {% if sumWin > sumLoss %}
+      <p>The team has a winning record of {{sumWin}}-{{sumLoss}}</p>
+    {% elif sumWin == sumLoss %}
+      <p>The team has a tied record of {{sumWin}}-{{sumLoss}}</p>
+    {% else %}
+      <p>The team has a loosing record of {{sumWin}}-{{sumLoss}}</p>
+    {% endif %}
 	  <form method="GET" action="/tasks/add/">
 	    <input type="submit" class="btn btn-primary" value = "Add Game">
 	  </form>

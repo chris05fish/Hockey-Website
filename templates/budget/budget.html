@@ -36,12 +36,13 @@
 		  </table>
 		{% endif %}
     {% if points > 0 %}
-      <p>This team has a total of {{ points }} points scored</p>
+      <p>This team has a total of {{ points }} points scored this season</p>
       {% if total >= 0 %}
         <p>Total players have +{{ total }} points from predicted scoring for this season</p>
       {% else %}
         <p>Total players have {{ total }} points from predicted scoring for this season</p>
       {% endif %}
+      <p>{{p}} ({{pos}}) has the most points scored with {{ max }} points this season</p>
     {% endif %}
 	  <form method="GET" action="/budget/add/">
 	    <input type="submit" class="btn btn-primary" value = "Add Player">

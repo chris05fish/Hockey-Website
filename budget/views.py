@@ -16,16 +16,26 @@ def budget(request):
 		sumProjected = 0
 		sumActual = 0
 		points = 0
+		max = 0
+		p = ""
+		pos = ""
 		budgetObjects = BudgetEntry.objects.all()
 		for e in BudgetEntry.objects.all():
 			sumProjected += e.prediction
 			sumActual += e.points
 			points += e.points
+			if(e.points > max):
+				max = e.points
+				p = e.player
+				pos = e.position
 		total = sumActual - sumProjected
 		context = {
 		"table_data": table_data,
 		"total": total,
 		"points": points,
+		"max": max,
+		"p": p,
+		"pos":pos,
 		"budgetObjects": budgetObjects
 		}
 		return render(request, 'budget/budget.html', context)
